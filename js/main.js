@@ -8,16 +8,22 @@ require.config({
     jquery: 'libs/jquery/jquery-min',
     underscore: 'libs/underscore/underscore-min',
     backbone: 'libs/backbone/backbone-min',
-    templates: '../templates'
+    templates: '../templates',
+    firebaseLib: 'https://cdn.firebase.com/js/client/2.2.7/firebase'
   }
+});
 
+
+define('firebase', ['firebaseLib'], function(){
+  return window.Firebase;
 });
 
 require([
   // Load our app module and pass it to our definition function
   'app',
+  'firebase'
 
-], function(App){
+], function(App, Firebase){
   // The "app" dependency is passed in as "App"
   // Again, the other dependencies passed in are not "AMD" therefore don't pass a parameter to this function
   App.initialize();
