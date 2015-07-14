@@ -5,25 +5,23 @@
 // Their usage will become more apparent futher along in the tutorial.
 require.config({
   paths: {
-    jquery: 'libs/jquery/jquery-min',
-    underscore: 'libs/underscore/underscore-min',
-    backbone: 'libs/backbone/backbone-min',
-    templates: '../templates',
-    firebaseLib: 'https://cdn.firebase.com/js/client/2.2.7/firebase'
+    jquery: '../bower_components/jquery/dist/jquery.min',
+    underscore: '../bower_components/underscore/underscore-min',
+    backbone: '../bower_components/backbone/backbone-min',
+    templates: '../templates'
   }
 });
 
 
-define('firebase', ['firebaseLib'], function(){
-  return window.Firebase;
-});
+// define('firebase', ['firebaseLib'], function(){
+//   return window.Firebase;
+// });
 
 require([
   // Load our app module and pass it to our definition function
-  'app',
-  'firebase'
+  'app'
 
-], function(App, Firebase){
+], function(App){
   // The "app" dependency is passed in as "App"
   // Again, the other dependencies passed in are not "AMD" therefore don't pass a parameter to this function
   App.initialize();

@@ -6,7 +6,7 @@ define([
 ], function($, _, Backbone, sidebarTemplate){
 
   var SidebarView = Backbone.View.extend({
-    el: $(".sidebar"),
+    el: $("#page"),
 
     render: function(){
 
