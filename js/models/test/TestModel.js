@@ -7,27 +7,29 @@ define([
 
 	var TestModel = Backbone.Model.extend({
 	  	initialize: function(testId) {
-	  		var questions = new QuestionsCollection(testId).fetch(),
-	  			answers = new AnswersCollection(testId).fetch({
-	  				success: function(){
-	  					debugger;
-	  				},
-	  				error: function(){
-	  					debugger;
-	  				}
-	  			});
+	  		that = this;
+	  		var questions = new QuestionsCollection(testId),
+	  			answers = new AnswersCollection(testId);
 			
 			this.on('change:answers', function(){
 				console.log(this.get('answers'));
 			}, this);
 
 	  		this.url = "/js/data/" + testId + "/test.json";
- 			this.fetch()
- 				
 
- 			this.set('questions', questions);
- 			this.set('answers', answers);
-			this.trigger('datacatch');
+	  		this.fetch().then(function() {
+	  			console.log("test model done"); 
+	  			return questions.fetch();
+	  		}).then(function(){
+	  			console.log('questions done'); 
+	  			that.set('questions', questions.toJSON());
+	  			return answers.fetch();
+	  		}).then(function(){
+	  			console.log('answers done');
+	  			that.set('answers', answers.toJSON());
+	  			that.trigger("datacatch");
+	  		});
+
 	  	}
 	});
 
