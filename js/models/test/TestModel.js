@@ -27,7 +27,7 @@ define([
 	  		}).then(function(){
 	  			console.log('answers done');
 	  			that.set('answers', answers.toJSON());
-	  			that.trigger("datacatch");
+	  			that.trigger("data-done");
 	  		});
 
 	  	}

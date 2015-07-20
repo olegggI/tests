@@ -10,8 +10,8 @@ define([
     el: $("#page"),
     initialize: function(testId) {
       this.model = new TestModel(testId);
-      this.listenTo(this.model, "datacatch", function() {
-        this.render(this.model.data);
+      this.listenTo(this.model, "data-done", function() {
+        this.render(this.model.toJSON());
       });
     },
     render: function(data){
