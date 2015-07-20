@@ -26,7 +26,7 @@ define([
     app_router.on('route:showTest', function(id){
    
         // Call render on the module we loaded in via the dependency array
-        var testView = new TestView();
+        var testView = new TestView(id);
 
     });
     

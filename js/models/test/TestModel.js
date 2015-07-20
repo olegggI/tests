@@ -1,50 +1,35 @@
 define([
   'underscore',
-  'backbone'
-], function(_, Backbone) {
+  'backbone',
+  'collections/questions/QuestionsCollection',
+  'collections/answers/AnswersCollection'
+], function(_, Backbone, QuestionsCollection, AnswersCollection) {
 
-  var TestModel = Backbone.Model.extend({
+	var TestModel = Backbone.Model.extend({
+	  	initialize: function(testId) {
+	  		var questions = new QuestionsCollection(testId).fetch(),
+	  			answers = new AnswersCollection(testId).fetch({
+	  				success: function(){
+	  					debugger;
+	  				},
+	  				error: function(){
+	  					debugger;
+	  				}
+	  			});
+			
+			this.on('change:answers', function(){
+				console.log(this.get('answers'));
+			}, this);
 
-  	initialize: function(testId) {
-  		var that = this;
-  		setTimeout(function(){
-  			that.data = {
-			  "questions": [
-			    {
-			      "question1": {
-			        "varian1": 10,
-			        "varian2":20,
-			        "variant3":30
-			      }
-			    },
-			    {
-			      "question2": {
-			        "varian1": 10,
-			        "varian2":20,
-			        "variant3":30
-			      }
-			    },
-			    {
-			      "question3": {
-			        "varian1": 10,
-			        "varian2":20,
-			        "variant3":30
-			      }
-			    }
-			  ],
-			  "ansewrs": {
-			    "result1" : 20,
-			    "result2" : 50,
-			    "result4" : 120
-			  }
-			};
-			that.trigger('datacatch');
+	  		this.url = "/js/data/" + testId + "/test.json";
+ 			this.fetch()
+ 				
 
-  		}, 200)
-  	}
+ 			this.set('questions', questions);
+ 			this.set('answers', answers);
+			this.trigger('datacatch');
+	  	}
+	});
 
-  });
-
-  return TestModel;
-
+	return TestModel;
 });

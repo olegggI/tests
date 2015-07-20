@@ -7,7 +7,7 @@ define([
 ], function($, _, Backbone, TestModel, testTemplate){
 
   var TestView = Backbone.View.extend({
-    id: 'test',
+    el: $("#page"),
     initialize: function(testId) {
       this.model = new TestModel(testId);
       this.listenTo(this.model, "datacatch", function() {
@@ -15,7 +15,10 @@ define([
       });
     },
     render: function(data){
-      //
+      var compiledTemplate = _.template(testTemplate);
+      this.$el.html(compiledTemplate(data));
+      $('.menu li').removeClass('active');
+      $('.menu li a[href="'+location.hash+'"]').parent().addClass('active');
     }
   });
 
